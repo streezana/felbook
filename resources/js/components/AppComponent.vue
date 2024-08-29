@@ -1,7 +1,6 @@
 <template>
-     <div class="d-flex justify-content-between" style="background-color: lightgoldenrodyellow;">
 <NavbarComponent />
-  </div>
+
   <router-view />
 </template>
 

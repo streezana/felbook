@@ -3,7 +3,7 @@
 <div class="col-md-2">
      <div class="card">
         <div class="card-header">
-       <!--   <CommentsPostComponent /> -->
+         <CommentsPostComponent />
         </div>   
      </div>    
 </div>
@@ -11,16 +11,21 @@
 <div class="col-md-8">
          <div class="card">
             <div class="mx-auto border border-1" v-if="onepost">
-               <div class="text-center" style="background-color: rgba(255, 242, 242, 0.2); height: 50px" >{{ onepost.title }}</div>
-               <div class="text-center" style="background-color:lightgrey;">{{ onepost.description }}</div>
+               <div class="px-3" style="background-color: rgba(255, 199, 199, 0.4)">
+               <div class="text-center" style="height: 50px" >{{ onepost.title.substr(0,200)+'.' }}</div>
+            </div>
 
-            
+               <div class="p-3 border border-1">
+                  <div class="fontjustify" v-html="dynamicHTML">
+
+               </div> 
+            </div>     
  </div>
   
-<!-- <div v-if="onepost">
+<div v-if="onepost">
    <PostCommentComponent v-model:message=onepost.id></PostCommentComponent>
 </div> 
-<div class="card-header" v-if="onepost">
+<!-- <div class="card-header" v-if="onepost">
    <CreateCommentComponent v-model:message=onepost.id></CreateCommentComponent>
 </div> -->
 
@@ -39,18 +44,23 @@
 </template>
 <script>
 import DashboardComponent from '../DashboardComponent.vue';
+import PostCommentComponent from '../Comment/PostCommentComponent.vue';
+import CommentsPostComponent from '../Comment/CommentsPostComponent.vue';
 //import CreateCommentComponent from '../Comment/CreateCommentComponent.vue';
-//import PostCommentComponent from '../Comment/PostCommentComponent.vue';
-//import CommentsPostComponent from '../Comment/CommentsPostComponent.vue';
 
 export default {
   name: "OnePostComponent",
   data() {
-            return {
-                onepost: null,
-             }
+         return {
+            onepost: null,
+           }
         },
-         mounted(){
+      computed: { 
+         dynamicHTML() { 
+         return `<p>${this.onepost.description.replace(/\n/g, '</p><p>')}</p>`; 
+         }
+     },
+      mounted(){
         this.getOnePost(this.$route.params.id);
         },
         methods: {
@@ -69,10 +79,33 @@ export default {
         },
   components: {
     DashboardComponent,
-   //  CreateCommentComponent,
-   //  PostCommentComponent,
-   //  CommentsPostComponent,
+    PostCommentComponent,
+    CommentsPostComponent,
+   //  CreateCommentComponent
     }
   }
  </script>
-
+<!-- <style lang="less" scoped> -->
+<style lang="less">
+.text-block {
+    white-space: pre-line;
+    text-indent: 17px;
+    text-align: justify;
+}
+a {
+    color: #0075B2; 
+    text-decoration: none; 
+   }
+a:visited {
+    color: #8F8E8E;
+   } 
+a:hover {
+    color: #f14018; 
+    text-decoration: underline; 
+   }
+.fontjustify {
+    justify-content: space-between;
+    text-align: justify;
+    width: 100%;
+}
+</style>

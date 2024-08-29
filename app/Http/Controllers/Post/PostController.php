@@ -18,4 +18,10 @@ class PostController extends Controller
       $onepost = Post::find($id);
       return $onepost;
     }
+    public function postcomments($id) 
+    {
+        $post = Post::find($id);
+        $comments = $post->comments;
+        return $comments;
+    } 
 }
