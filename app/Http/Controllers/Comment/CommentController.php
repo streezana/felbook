@@ -9,7 +9,6 @@ class CommentController extends Controller
     public function allComments()
     { 
         $comments = Comment::all();
-     // dd($comments);
        return $comments;
     }
         public function post() 

@@ -10,7 +10,6 @@ class PostController extends Controller
     public function show()
     {
         $posts = Post::all();
-        // dd($posts);
         return $posts;
     }
     public function showpost($id)
